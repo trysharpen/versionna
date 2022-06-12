@@ -1,0 +1,40 @@
+{
+    "name": "sirodiaz/manticore-migration",
+    "description": "Manticoresearch migration tool. Keep your index schemas up to date programmatically in your application",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SiroDiaz\\ManticoreMigration\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SiroDiaz\\ManticoreMigration\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Siro Díaz Palazón",
+            "email": "sirodiaz93@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3.0",
+        "manticoresoftware/manticoresearch-php": "^1.8",
+        "nyholm/dsn": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "phpstan/phpstan": "^1.6"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test:watch": "vendor/bin/phpunit --watch"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

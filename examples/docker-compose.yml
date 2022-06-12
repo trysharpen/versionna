@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  manticore:
+    container_name: manticore
+    image: manticoresearch/manticore
+    restart: always
+    ports:
+      - 9306:9306
+      - 9308:9308
+    volumes:
+      - manticore_example_data:/var/lib/manticore
+
+volumes:
+  manticore_example_data:
