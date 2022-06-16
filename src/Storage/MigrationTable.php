@@ -4,6 +4,7 @@ namespace SiroDiaz\ManticoreMigration\Storage;
 
 use PDO;
 use PDOException;
+use SiroDiaz\ManticoreMigration\Storage\Database\MigrationTableFactory;
 
 class MigrationTable {
 	/**
@@ -83,32 +84,19 @@ class MigrationTable {
 
 	public function exists()
 	{
-		$query = "SELECT name FROM sqlite_master WHERE name='{$this->getFullTableName()}' AND type='table'";
+		$migrationTableCreator = new MigrationTableFactory($this->connection, $this->getFullTableName());
+		$migrationCreator = $migrationTableCreator->make();
 
-		$statement = $this->getPDOConnection()->prepare($query);
-		$statement->execute();
-
-		return $statement->fetchColumn() !== false;
+		return $migrationCreator->existsTable();
 	}
 
 	public function create()
 	{
-		$databaseDriver = $this->connection->getConfiguration()->getDriver();
-		// $migrationTableCreator = new MigrationTableCreator($databaseDriver);
+		$migrationTableCreator = new MigrationTableFactory($this->connection, $this->getFullTableName());
+		$migrationCreator = $migrationTableCreator->make();
 
+		$migrationCreator->createTable();
 		// var_dump($migrationTableCreator->getTableSchema($this->getFullTableName()));
-		// $migrationTableCreator->create($this->getFullTableName());
-
-		$this->getPDOConnection()->exec(<<<SQL
-			CREATE TABLE IF NOT EXISTS {$this->getFullTableName()} (
-				id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-				version INTEGER NOT NULL,
-				migration_name TEXT NOT NULL,
-				description TEXT,
-				created_at DATETIME NOT NULL
-			)
-		SQL
-		);
 	}
 
 	/**
@@ -205,10 +193,12 @@ class MigrationTable {
 	 */
 	public function undoPrevious(string $migrationName)
 	{
-		$query = "DELETE FROM {$this->getFullTableName()} WHERE version = (SELECT MAX(version) FROM {$this->getFullTableName()}) AND migration_name = :migration_name";
+		$latestVersion = $this->getLatestVersion();
+		$query = "DELETE FROM {$this->getFullTableName()} WHERE version = :latest_version AND migration_name = :migration_name";
 
 		$statement = $this->getPDOConnection()->prepare($query);
 		$statement->bindValue(':migration_name', $migrationName);
+		$statement->bindValue(':latest_version', $latestVersion);
 		$statement->execute();
 	}
 

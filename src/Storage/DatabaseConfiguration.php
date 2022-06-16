@@ -112,7 +112,7 @@ final class DatabaseConfiguration
         $dsn .= 'host=' . $this->host . ';';
         $dsn .= 'port=' . $this->port . ';';
         $dsn .= 'dbname=' . $this->dbname . ';';
-        $dsn .= 'charset=utf8mb4';
+        //$dsn .= 'charset=utf8mb4';
 
         return $dsn;
     }

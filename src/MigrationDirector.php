@@ -178,6 +178,20 @@ class MigrationDirector
 		return $this->migrationTable;
 	}
 
+	public function fresh()
+	{
+		if ($this->migrationTable->exists()) {
+			$this->migrationTable->truncate(true);
+		}
+
+		$this->migrate();
+	}
+
+	/**
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
 	public function migrate(): void
 	{
 		try {

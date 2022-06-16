@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'connection' => 'sqlite',
+	'connection' => 'pgsql',
 	'connections' => [
 		'sqlite' => [
 			'driver' => 'sqlite',
