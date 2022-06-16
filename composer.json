@@ -22,12 +22,14 @@
     "require": {
         "php": ">=7.3.0",
         "manticoresoftware/manticoresearch-php": "^1.8",
-        "nyholm/dsn": "^2.0"
+        "nyholm/dsn": "^2.0",
+		"symfony/console": "^5.4.9"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "phpstan/phpstan": "^1.6"
     },
+	"bin": ["bin/manticore-migrator"],
     "config": {
         "sort-packages": true
     },

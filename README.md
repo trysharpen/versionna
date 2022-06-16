@@ -2,16 +2,20 @@
 Manticoresearch migration tool. Keep updated your index schemas up to date programmatically in your application.
 
 ## project progress and roadmap
+  - [ ] Add a logger implementation
   - [ ] Add command line interface feature
-  - [ ] Executable script (bin/manticore-migration)
+  - [x] Executable script (bin/manticore-migration)
   - [ ] Add commands
     - [ ] list
-    - [ ] list:all
-    - [ ] list:pending
-    - [ ] list:migrated
-    - [ ] migrate
-    - [ ] rollback
+    - [ ] migration:list:pending
+    - [ ] migration:list:migrated
+    - [x] migrate
+    - [x] rollback
+    - [ ] rollback with --steps
+    - [x] fresh
     - [ ] refresh
+    - [ ] refresh with --steps
+    - [ ] reset
     - [ ] status
     - [ ] help
   - [ ] Add drivers to support multiple DBs engines dialects
@@ -23,7 +27,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
   - [ ] Add tests
 ## Installation
 
-```bash composer require manticore-migration```
+```composer require manticore-migration```
 
 ## Usage
 

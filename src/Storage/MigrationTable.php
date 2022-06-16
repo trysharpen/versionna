@@ -94,7 +94,6 @@ class MigrationTable {
 	public function create()
 	{
 		$databaseDriver = $this->connection->getConfiguration()->getDriver();
-
 		// $migrationTableCreator = new MigrationTableCreator($databaseDriver);
 
 		// var_dump($migrationTableCreator->getTableSchema($this->getFullTableName()));

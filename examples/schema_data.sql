@@ -13,7 +13,7 @@ CREATE INDEX IF NOT EXISTS users_index_birthdate ON users (birthdate);
 INSERT VALUES INTO users (id, name, username, biography, birthdate)
 VALUES (1, 'John Doe', 'jdoe', '', '1980-01-01'), (2, 'Jane Doe', 'jdoe2', '', '1980-01-01'),
         (3, 'John Smith', 'jsmith', '', '1980-01-01'), (4, 'Jane Smith', 'jsmith2', '', '1980-01-01'),
-        (4, 'Jane Smith', 'jsmith2', '', '1980-01-01'), (5, 'John Smith', 'jsmith3', '', '1980-01-01');
+        (5, 'John Smith', 'jsmith3', '', '1980-01-01');
 
 
 CREATE TABLE IF NOT EXISTS products (
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 INSERT INTO products (id, seller_id, name, description, price)
 VALUES
-    (1, 1, 'AMD Ryzen 5 2600', '', 2999.99),
-    (2, 1, 'Intel Core i7-7700K', '', 2999.99),
+    (1, 1, 'AMD Ryzen 5 2600', '', 299.99),
+    (2, 1, 'Intel Core i7-7700K', '', 299.99),
     (3, 2, 'Raspberry Pi 3', '', 29.99),
     (4, 1, 'Raspberry Pi 4', '', 39.99);

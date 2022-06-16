@@ -1,8 +1,6 @@
 <?php
 
-use SiroDiaz\ManticoreMigration\Indexer\Indexer;
 use SiroDiaz\ManticoreMigration\Migration;
-use SiroDiaz\ManticoreMigration\Runner\ManticoreRunner;
 
 class CreateProductsIndex extends Migration
 {
@@ -12,8 +10,9 @@ class CreateProductsIndex extends Migration
 	 *
 	 * @return void
 	 */
-	public function up(): void {
-		$this->runner->execute('CREATE TABLE products (id bigint, seller_id bigint, title text stored, description text stored, price float)');
+	public function up(): void
+	{
+		$this->runner->execute('CREATE TABLE products (id bigint, seller_id bigint, title text, description text, price float)');
 		$this->indexer->index('products', 'SELECT id, seller_id, name as title, description, price FROM products');
 	}
 
@@ -22,7 +21,8 @@ class CreateProductsIndex extends Migration
 	 *
 	 * @return void
 	 */
-	public function down(): void {
+	public function down(): void
+	{
 		$this->runner->execute('DROP TABLE products');
 	}
 }

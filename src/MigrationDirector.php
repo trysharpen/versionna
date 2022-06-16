@@ -106,7 +106,7 @@ class MigrationDirector
 	/**
 	 * @return array
 	 */
-	private function getPendingMigrations(): array
+	public function getPendingMigrations(): array
 	{
 		$migrations = Loader::load($this->migrationsPath);
 
@@ -131,6 +131,11 @@ class MigrationDirector
 			},
 			ARRAY_FILTER_USE_BOTH
 		);
+	}
+
+	public function hasPendingMigrations(): bool
+	{
+		return count($this->getPendingMigrations()) > 0;
 	}
 
 	protected function requireClassFile(string $file)
@@ -176,7 +181,10 @@ class MigrationDirector
 	public function migrate(): void
 	{
 		try {
-			!$this->migrationTable->exists() && $this->migrationTable->create();
+			if (!$this->migrationTable->exists()) {
+				$this->migrationTable->create();
+			}
+
 			$this->runPendingMigrations($this->getPendingMigrations());
 		} catch (Exception $e) {
 			throw $e;

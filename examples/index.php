@@ -111,15 +111,7 @@ function listMigrations()
 
 function migrate() {
 	$configuration = require __DIR__ .'/config.php';
-	// check if the migration table exists
-	// $migrationTable = new MigrationTable($dbConn, $configuration['table_prefix'], $configuration['migration_table']);
-	// // if not, create it
-	// $migrationTable->exists() === false ?? $migrationTable->create();
-	// // if it exists, check latest migration version
-	// $latestMigration = $migrationTable->getLatestMigrations();
-	// if the latest migration version is the same as the current version, do nothing
-	// if the latest migration version is different, run the migrations
-	//$migrations = (new Loader())->load($configuration['migrations_path']);
+
 	$dbConnection = new DatabaseConnection(
 		DatabaseConfiguration::fromArray($configuration['connection'])
 	);
@@ -165,7 +157,6 @@ function rollback($steps = 1) {
 		->migrationTable($migrationTable);
 
 	$director->undoMigrations($steps);
-
 }
 
 function refresh() {

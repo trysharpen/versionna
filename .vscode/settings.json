@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "playground",
+      "database": "${workspaceFolder:manticore-migration}/examples/database/playground.sqlite"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}

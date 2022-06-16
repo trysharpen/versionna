@@ -4,9 +4,9 @@ use SiroDiaz\ManticoreMigration\Indexer\Indexer;
 use SiroDiaz\ManticoreMigration\Migration;
 use SiroDiaz\ManticoreMigration\Runner\ManticoreRunner;
 
-class CreateUsersIndex extends Migration
+class %s extends Migration
 {
-	public $description = 'Creates users index';
+	public $description = '%s';
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,9 @@ class CreateUsersIndex extends Migration
 	 * @return void
 	 */
 	public function up(): void {
-		$this->runner->execute('CREATE TABLE users (id bigint, name text, username text, biography text, birthdate timestamp)');
+    // create, alter index fields, etc.
+		$this->runner->execute('CREATE TABLE ...');
+    // load an index with the data comming from a SQL database
 		$this->indexer->index('users', 'SELECT id, name, username, biography, birthdate FROM users');
 	}
 
@@ -24,6 +26,6 @@ class CreateUsersIndex extends Migration
 	 * @return void
 	 */
 	public function down(): void {
-		$this->runner->execute('DROP TABLE users');
+		$this->runner->execute('DROP TABLE ...');
 	}
 }

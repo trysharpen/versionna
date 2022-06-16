@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  manticore:
+    container_name: manticore
+    image: manticoresearch/manticore
+    restart: always
+    ports:
+      - 9306:9306
+      - 9308:9308
+    volumes:
+      - manticore_example_data:/var/lib/manticore
+    networks:
+      - manticore_network
+
+  mysql:
+    container_name: mysql
+    image: postgres:14.3-alpine
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      POSTGRES_USER: manticore
+      POSTGRES_PASSWORD: manticore
+      POSTGRES_DB: manticore
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+    volumes:
+      - pgdata_manticore_data:/var/lib/postgresql/data
+    networks:
+      - manticore_network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - manticore_network
+
+volumes:
+  manticore_example_data:
+  pgdata_manticore_data:
+
+networks:
+  manticore_network:
+    driver: bridge
