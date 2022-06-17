@@ -26,8 +26,9 @@
 		"symfony/console": "^5.4.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
-        "phpstan/phpstan": "^1.6"
+        "phpro/grumphp-shim": "^1.12",
+        "phpstan/phpstan": "^1.6",
+        "phpunit/phpunit": "^9.0"
     },
 	"bin": ["bin/manticore-migrator"],
     "config": {

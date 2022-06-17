@@ -9,10 +9,12 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
       - [ ] 8.0
       - [ ] 8.1
     - [ ] CSniffer
-    - [ ] PhpStan
+    - [x] PhpStan
     - [ ] PHPUnit run tests
   - [ ] Add a logger implementation
   - [x] Add docker-compose stack files for testing and development
+  - [ ] Add code documentation
+  - [ ] Write a complete README file explaining all
   - [ ] Add unit and integration tests
   - [ ] Add command line interface feature
     - [ ] Add cli application metadata such as name, description, etc.
