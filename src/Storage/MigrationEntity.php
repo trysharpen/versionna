@@ -82,4 +82,14 @@ class MigrationEntity
 	{
 		$this->created_at = new DateTime();
 	}
+
+	public function toArray()
+	{
+		return [
+			'migration_name' => $this->name,
+			'version' => $this->version,
+			'description' => $this->description,
+			'created_at' => $this->created_at->format('Y-m-d h:i:s'),
+		];
+	}
 }

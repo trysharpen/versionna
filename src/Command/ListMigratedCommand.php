@@ -8,12 +8,12 @@ use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
 use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
 use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ListMigratedCommand extends Command
+class ListMigratedCommand extends AbstractCommand
 {
 	protected static $defaultName = 'migration:list:migrated';
 
@@ -24,49 +24,52 @@ class ListMigratedCommand extends Command
      */
     protected function configure()
     {
-        // parent::configure();
-		$this->addOption('--configuration', '-c', InputOption::VALUE_REQUIRED, 'The configuration file to load');
-        // $this->addOption('--parser', '-p', InputOption::VALUE_REQUIRED, 'Parser used to read the config file. Defaults to PHP');
-        $this->addOption('--no-info', null, InputOption::VALUE_NONE, 'Hides all debug information');
+        parent::configure();
 
-		$this->addOption('--no-info', null, InputOption::VALUE_NONE, 'Hides all debug information');
         $this->setDescription('Lists Manticoresearch migrations applied')
             ->setHelp(sprintf(
                 '%sLists Manticoresearch migrations applied%s',
                 PHP_EOL,
                 PHP_EOL
             ));
-    }
+
+		$this->addOption('--ascending', '-asc', InputOption::VALUE_NONE, 'Sort in ascending order (default is descending)');
+	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
     {
-		if ($input->getOption('configuration') === null) {
-			$output->writeln('<error>You must specify a configuration file</error>');
+		$commandExitCode = parent::execute($input, $output);
 
-			return Command::INVALID;
+		if ($commandExitCode !== Command::SUCCESS) {
+			return $commandExitCode;
 		}
 
-        $configuration = require $input->getOption('configuration');
-
 		$dbConnection = new DatabaseConnection(
-			DatabaseConfiguration::fromArray($configuration['connection'])
+			DatabaseConfiguration::fromArray(
+				$this->configuration['connections'][$this->connection]
+			)
 		);
 
-		$manticoreConnection = new ManticoreConnection(
-			$configuration['manticore_connection']['host'],
-			$configuration['manticore_connection']['port'],
+		$migrationTable = new MigrationTable(
+			$dbConnection,
+			$this->configuration['table_prefix'],
+			$this->configuration['migration_table']
 		);
 
-		$migrationTable = new MigrationTable($dbConnection, $configuration['table_prefix'], $configuration['migration_table']);
+		$migrations = $migrationTable->getAll($input->getOption('ascending'));
 
-		$director = new MigrationDirector();
-		$director
-			->dbConnection($dbConnection)
-			->manticoreConnection($manticoreConnection)
-			->migrationsPath($configuration['migrations_path'])
-			->migrationTable($migrationTable);
+		$io = new SymfonyStyle($input, $output);
+        $io->writeln('');
 
-		$director->undoMigrations($input->getOption('steps'));
+		$io->table(
+			MigrationTable::LISTABLE_COLUMNS,
+			array_map(
+				function ($migration) {
+					return $migration->toArray();
+				},
+				$migrations,
+			),
+		);
 
         return Command::SUCCESS;
     }

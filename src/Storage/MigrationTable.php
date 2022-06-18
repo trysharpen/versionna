@@ -23,6 +23,8 @@ class MigrationTable {
 	 */
 	protected $tableName;
 
+	const LISTABLE_COLUMNS = ['name', 'version', 'description', 'created_at'];
+
 	public function __construct(
 		DatabaseConnection $connection,
 		string $tablePrefix,
@@ -230,6 +232,20 @@ class MigrationTable {
 	public function getLatestMigrations()
 	{
 		$query = "SELECT * FROM {$this->getFullTableName()} WHERE version = (SELECT MAX(version) AS lastest_version FROM {$this->getFullTableName()}) ORDER BY version DESC, migration_name DESC";
+
+		$statement = $this->getPDOConnection()->prepare($query);
+		$statement->execute();
+
+		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+		return empty($results) ? null : array_map(function ($migration) {
+			return MigrationEntity::fromArray($migration);
+		}, $results);
+	}
+
+	public function getAll($ascending = false)
+	{
+		$query = "SELECT * FROM {$this->getFullTableName()} ORDER BY id " . ($ascending ? 'ASC' : 'DESC');
 
 		$statement = $this->getPDOConnection()->prepare($query);
 		$statement->execute();
