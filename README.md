@@ -1,6 +1,5 @@
-# manticore-migration
+# manticore-migration: under-construction
 Manticoresearch migration tool. Keep updated your index schemas up to date programmatically in your application.
-
 ## project progress and roadmap
   - [ ] Add CI pipeline
     - [ ] Add PHP versions supported
@@ -23,7 +22,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
   - [ ] Add commands
     - [ ] list
     - [ ] migration:list:pending
-    - [ ] migration:list:migrated
+    - [x] migration:list:migrated
     - [x] migrate
     - [x] rollback
     - [ ] rollback with --steps
@@ -41,9 +40,12 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
   - [ ] Create a Symfony package
 ## Installation
 
-```composer require manticore-migration```
+```composer require sirodiaz/manticore-migration```
 
 ## Usage
+First of all, you need to install the package.
+
+```composer require sirodiaz/manticore-migration```
 
 ### Create migration
 

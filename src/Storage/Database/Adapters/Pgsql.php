@@ -4,7 +4,7 @@ namespace SiroDiaz\ManticoreMigration\Storage\Database\Adapters;
 
 class Pgsql extends Schema
 {
-	public function createTable()
+	public function createTable(): void
 	{
 		$this->connection->exec(<<<SQL
 			CREATE TABLE IF NOT EXISTS {$this->tableName} (
