@@ -1,0 +1,25 @@
+{
+    "name": "my/demo",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Siro Díaz Palazón",
+            "email": "sirodiaz93@gmail.com"
+        }
+    ],
+    "require": {
+		"sirodiaz/manticore-migration": "*"
+	},
+	"autoload": {
+		"files": [
+			"index.php"
+		]
+	},
+	"repositories": [
+        {
+          "type": "path",
+          "url": "../../manticore-migration"
+        }
+    ]
+}

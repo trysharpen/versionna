@@ -47,6 +47,15 @@ First of all, you need to install the package.
 
 ```composer require sirodiaz/manticore-migration```
 
+After been installed, you need to create a directory.
+That directory will contain the migration files sorted by creation date.
+
+You have two different ways to use this package:
+
+  - programmatically
+  - CLI
+
+You can create your own integration with `manticore-migration` using the programmatically way. You can see the **examples** directory in this repository.
 ### Create migration
 
 ### Apply migration

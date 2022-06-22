@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "SiroDiaz\\ManticoreMigration\\": "src/"
+            "SiroDiaz\\ManticoreMigration\\": "src/ManticoreMigration/"
         }
     },
     "autoload-dev": {
