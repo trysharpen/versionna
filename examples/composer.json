@@ -8,18 +8,14 @@
             "email": "sirodiaz93@gmail.com"
         }
     ],
-    "require": {
-		"sirodiaz/manticore-migration": "*"
-	},
 	"autoload": {
-		"files": [
-			"index.php"
-		]
 	},
 	"repositories": [
         {
           "type": "path",
-          "url": "../../manticore-migration"
+          "url": "../",
+		  "exclude": ["../examples/"]
         }
-    ]
+    ],
+	"minimum-stability": "dev"
 }
