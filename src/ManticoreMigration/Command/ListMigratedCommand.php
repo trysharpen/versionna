@@ -61,15 +61,22 @@ class ListMigratedCommand extends AbstractCommand
 		$io = new SymfonyStyle($input, $output);
         $io->writeln('');
 
-		$io->table(
-			MigrationTable::LISTABLE_COLUMNS,
-			array_map(
+		if ($migrations) {
+
+			$migrationsDone = array_map(
 				function ($migration) {
 					return $migration->toArray();
 				},
 				$migrations,
-			),
-		);
+			);
+
+			$io->table(
+				MigrationTable::LISTABLE_COLUMNS,
+				$migrationsDone,
+			);
+		} else {
+			$io->writeln('<info>The migration table is empty</info>');
+		}
 
         return Command::SUCCESS;
     }

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ListPendingCommand extends AbstractCommand
 {
@@ -26,7 +27,7 @@ class ListPendingCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setDescription('Rollback a migration to a previous version')
+        $this->setDescription('Lists Manticoresearch pending migrations')
             ->setHelp(sprintf(
                 '%sLists Manticoresearch pending migrations%s',
                 PHP_EOL,
@@ -36,36 +37,52 @@ class ListPendingCommand extends AbstractCommand
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
     {
-		if ($input->getOption('configuration') === null) {
-			$output->writeln('<error>You must specify a configuration file</error>');
+		$commandExitCode = parent::execute($input, $output);
 
-			return Command::INVALID;
+		if ($commandExitCode !== Command::SUCCESS) {
+			return $commandExitCode;
 		}
 
-        $configuration = require $input->getOption('configuration');
-
 		$dbConnection = new DatabaseConnection(
-			DatabaseConfiguration::fromArray($configuration['connection'])
+			DatabaseConfiguration::fromArray(
+				$this->configuration['connections'][$this->connection]
+			)
 		);
 
 		$manticoreConnection = new ManticoreConnection(
-			$configuration['manticore_connection']['host'],
-			$configuration['manticore_connection']['port'],
+			$this->configuration['manticore_connection']['host'],
+			$this->configuration['manticore_connection']['port'],
 		);
 
-		$migrationTable = new MigrationTable($dbConnection, $configuration['table_prefix'], $configuration['migration_table']);
+		$migrationTable = new MigrationTable(
+			$dbConnection,
+			$this->configuration['table_prefix'],
+			$this->configuration['migration_table']
+		);
 
 		$director = new MigrationDirector();
+
 		$director
 			->dbConnection($dbConnection)
 			->manticoreConnection($manticoreConnection)
-			->migrationsPath($configuration['migrations_path'])
+			->migrationsPath($this->configuration['migrations_path'])
 			->migrationTable($migrationTable);
 
 		$pendingMigrations = $director->getPendingMigrations();
 
 		if (count($pendingMigrations) > 0) {
-			var_dump($pendingMigrations);
+			$io = new SymfonyStyle($input, $output);
+			$io->writeln('');
+
+			$io->table(
+				['name',],
+				array_map(
+					function ($migration) {
+						return ['name' => $migration];
+					},
+					array_values(array_keys($pendingMigrations)),
+				),
+			);
 		} else {
 			$output->writeln('<info>ManticoreSearch is up to date! no pending migrations</info>');
 		}
