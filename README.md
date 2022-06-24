@@ -7,7 +7,6 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
       - [ ] 7.4
       - [ ] 8.0
       - [ ] 8.1
-    - [ ] CSniffer
     - [x] PhpStan
     - [ ] PHPUnit run tests
   - [ ] Add a logger implementation
@@ -21,6 +20,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
   - [x] Executable script (bin/manticore-migration)
   - [ ] Add commands
     - [ ] list
+    - [x] make:migration
     - [x] migration:list:pending
     - [x] migration:list:migrated
     - [x] migrate
@@ -55,7 +55,9 @@ You have two different ways to use this package:
   - programmatically
   - CLI
 
-You can create your own integration with `manticore-migration` using the programmatically way. You can see the **examples** directory in this repository.
+You can create your own integration with `manticore-migration` using the programmatically way as you can see in hte **examples** directory in this repository.
+
+In each section of these documentation you will see both: programmatically and CLI version to create, migrate, rollback, list applied and pending migrations.
 ### Create migration
 
 ### Apply migration
