@@ -21,7 +21,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
   - [x] Executable script (bin/manticore-migration)
   - [ ] Add commands
     - [ ] list
-    - [ ] migration:list:pending
+    - [x] migration:list:pending
     - [x] migration:list:migrated
     - [x] migrate
     - [x] rollback
@@ -31,7 +31,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
     - [ ] refresh with --steps
     - [ ] reset
     - [ ] status
-    - [ ] help
+    - [x] help
   - [x] Add drivers to support multiple DBs engines dialects
     - [x] Add driver for SQLite
     - [x] Add driver for MySQL
@@ -62,8 +62,6 @@ You can create your own integration with `manticore-migration` using the program
 
 ### Rollback migration
 
-### List all migrations
-
-### List migrations history
+### List migrations applied history
 
 ### List pending migrations

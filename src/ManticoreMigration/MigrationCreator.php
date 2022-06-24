@@ -48,23 +48,26 @@ class MigrationCreator
 		return <<<PHP
 <?php
 
-	use SiroDiaz\ManticoreMigration\Migration;
-	use SiroDiaz\ManticoreMigration\Runner\ManticoreRunner;
+use SiroDiaz\ManticoreMigration\Migration;
 
-	class {$migrationClassName} extends Migration
+class {$migrationClassName} extends Migration
+{
+	public \$description = '{$this->description}';
+
+	public function up(): void
 	{
-		public \$description = '{$this->description}';
-
-		public function up(): void
-		{
-			// Your migration code goes here
-		}
-
-		public function down(): void
-		{
-			// Your undo migration code goes here
-		}
+		// Your Sphinxql migration code goes here
+		\$this->runner->execute('CREATE TABLE ...');
+		// Optional: Your populate SQL query goes here
+		\$this->indexer->index('SELECT * FROM ...');
 	}
+
+	public function down(): void
+	{
+		// Your undo migration code goes here
+		\$this->runner->execute('DROP TABLE ...');
+	}
+}
 PHP;
 	}
 
