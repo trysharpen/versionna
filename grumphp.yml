@@ -1,2 +1,4 @@
 grumphp:
-    tasks: { phpcs: null }
+  tasks:
+    phpstan:
+      configuration: ~
