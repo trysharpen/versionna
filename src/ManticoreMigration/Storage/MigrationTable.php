@@ -84,7 +84,11 @@ class MigrationTable {
 		return "{$this->tablePrefix}{$this->tableName}";
 	}
 
-	public function exists()
+	/**
+	 *
+	 * @return bool
+	 */
+	public function exists(): bool
 	{
 		$migrationTableCreator = new MigrationTableFactory($this->connection, $this->getFullTableName());
 		$migrationCreator = $migrationTableCreator->make();
@@ -92,7 +96,7 @@ class MigrationTable {
 		return $migrationCreator->existsTable();
 	}
 
-	public function create()
+	public function create(): void
 	{
 		$migrationTableCreator = new MigrationTableFactory($this->connection, $this->getFullTableName());
 		$migrationCreator = $migrationTableCreator->make();
@@ -105,7 +109,7 @@ class MigrationTable {
 	 * Returns an array with all the migrations that have been executed
 	 * sorted by descendent version order.
 	 *
-	 * @return array
+	 * @return MigrationEntity[]
 	 * @throws PDOException
 	 */
 	public function getSortedMigrations(): array
@@ -119,7 +123,7 @@ class MigrationTable {
 		return empty($result) ? [] : $result;
 	}
 
-	public function getLatestVersion()
+	public function getLatestVersion(): mixed
 	{
 		$query = "SELECT MAX(version) FROM {$this->getFullTableName()}";
 
@@ -133,9 +137,9 @@ class MigrationTable {
 	 * Returns the next version ID to be used for the next migration execution
 	 *
 	 * @throws PDOException
-	 * @return bool
+	 * @return int
 	 */
-	public function getNextVersion()
+	public function getNextVersion(): int
 	{
 		return $this->getLatestVersion() + 1;
 	}
@@ -146,7 +150,7 @@ class MigrationTable {
 	 * @return bool
 	 * @throws PDOException
 	 */
-	public function insert(MigrationEntity $migrationEntity)
+	public function insert(MigrationEntity $migrationEntity): bool
 	{
 		$query = "INSERT INTO {$this->getFullTableName()} (version, migration_name, description, created_at) VALUES (:version, :migration_name, :description, :created_at)";
 
@@ -164,8 +168,7 @@ class MigrationTable {
 
 	/**
 	 *
-	 * @param MigrationEntity $migrationEntity
-	 * @return bool
+	 * @return \stdClass[]
 	 * @throws PDOException
 	 */
 	public function getMigrationsToUndo(): array
@@ -204,12 +207,12 @@ class MigrationTable {
 		$statement->execute();
 	}
 
-	public function drop()
+	public function drop(): void
 	{
 		$this->getPDOConnection()->exec("DROP TABLE IF EXISTS {$this->getFullTableName()}");
 	}
 
-	public function truncate(bool $force = false)
+	public function truncate(bool $force = false): void
 	{
 		if ($force) {
 			$this->drop();
@@ -219,7 +222,13 @@ class MigrationTable {
 		}
 	}
 
-	public function rollback(int $version)
+	/**
+	 *
+	 * @param int $version
+	 * @return bool
+	 * @throws PDOException
+	 */
+	public function rollback(int $version): bool
 	{
 		$query = "DELETE FROM {$this->getFullTableName()} WHERE version = :version";
 
@@ -229,7 +238,12 @@ class MigrationTable {
 		return $statement->execute();
 	}
 
-	public function getLatestMigrations()
+	/**
+	 *
+	 * @return MigrationEntity[]
+	 * @throws PDOException
+	 */
+	public function getLatestMigrations(): array
 	{
 		$query = "SELECT * FROM {$this->getFullTableName()} WHERE version = (SELECT MAX(version) AS lastest_version FROM {$this->getFullTableName()}) ORDER BY version DESC, migration_name DESC";
 
@@ -238,12 +252,12 @@ class MigrationTable {
 
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-		return empty($results) ? null : array_map(function ($migration) {
+		return empty($results) ? [] : array_map(function ($migration) {
 			return MigrationEntity::fromArray($migration);
 		}, $results);
 	}
 
-	public function getAll($ascending = false)
+	public function getAll(bool $ascending = false): mixed
 	{
 		$query = "SELECT * FROM {$this->getFullTableName()} ORDER BY id " . ($ascending ? 'ASC' : 'DESC');
 
@@ -252,7 +266,7 @@ class MigrationTable {
 
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-		return empty($results) ? null : array_map(function ($migration) {
+		return empty($results) ? [] : array_map(function ($migration) {
 			return MigrationEntity::fromArray($migration);
 		}, $results);
 	}

@@ -4,6 +4,7 @@ namespace SiroDiaz\ManticoreMigration;
 
 use DateTime;
 use Exception;
+use PDOException;
 use SiroDiaz\ManticoreMigration\Indexer\ManticoreIndexer;
 use SiroDiaz\ManticoreMigration\Manticore\ManticoreConnection;
 use SiroDiaz\ManticoreMigration\Runner\Loader;
@@ -112,11 +113,11 @@ class MigrationDirector
 
 		$latestMigrationsName = array_map(function ($migration) {
 			return $migration->getName();
-		}, $this->getMigrationTable()->getAll() ?? []);
+		}, $this->getMigrationTable()->getAll());
 
 		$pendingMigrationFilenames = array_diff(
 			array_keys($migrations),
-			array_values($latestMigrationsName)
+			array_values($latestMigrationsName),
 		);
 
 		// detect if there are duplicated migrations
@@ -133,12 +134,24 @@ class MigrationDirector
 		);
 	}
 
+	/**
+	 *
+	 * @return bool
+	 * @throws PDOException
+	 * @throws Exception
+	 */
 	public function hasPendingMigrations(): bool
 	{
 		return count($this->getPendingMigrations()) > 0;
 	}
 
-	protected function requireClassFile(string $file)
+	/**
+	 *
+	 * @param string $file
+	 * @return void
+	 * @throws Exception
+	 */
+	protected function requireClassFile(string $file): void
 	{
 		if (!file_exists($file)) {
 			throw new Exception("File $file does not exist");
@@ -147,13 +160,12 @@ class MigrationDirector
 		require_once $file;
 	}
 
-
     /**
      * Get the database connection instance.
      *
      * @return DatabaseConnection
      */
-    public function getDbConnection()
+    public function getDbConnection(): DatabaseConnection
     {
         return $this->dbConnection;
     }
@@ -163,7 +175,7 @@ class MigrationDirector
 	 *
 	 * @return ManticoreConnection
 	 */
-	public function getManticoreConnection()
+	public function getManticoreConnection(): ManticoreConnection
 	{
 		return $this->manticoreConnection;
 	}
@@ -178,7 +190,7 @@ class MigrationDirector
 		return $this->migrationTable;
 	}
 
-	public function fresh()
+	public function fresh(): void
 	{
 		if ($this->migrationTable->exists()) {
 			$this->migrationTable->truncate(true);
@@ -295,18 +307,14 @@ class MigrationDirector
 		}
 	}
 
-	// protected function runDownMigration(Migration $migration, MigrationEntity $entity): void
-	// {
-	// }
-
-	private function setUp()
+	private function setUp(): void
 	{
 		if ($this->withinTransaction) {
 			$this->dbConnection->getConnection()->beginTransaction();
 		}
 	}
 
-	private function rollback()
+	private function rollback(): void
 	{
 		if ($this->withinTransaction) {
 			$this->dbConnection->getConnection()->rollback();
