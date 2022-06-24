@@ -112,7 +112,7 @@ class MigrationDirector
 
 		$latestMigrationsName = array_map(function ($migration) {
 			return $migration->getName();
-		}, $this->getMigrationTable()->getLatestMigrations() ?? []);
+		}, $this->getMigrationTable()->getAll() ?? []);
 
 		$pendingMigrationFilenames = array_diff(
 			array_keys($migrations),
