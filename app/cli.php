@@ -14,9 +14,8 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-// register commands
-$application->add(new \SiroDiaz\ManticoreMigration\Command\MigrateCommand());
-$application->add(new \SiroDiaz\ManticoreMigration\Command\RollbackCommand());
+$application->add(new \SiroDiaz\ManticoreMigration\Command\MigrateCommand())->setAliases(['migrate:up']);
+$application->add(new \SiroDiaz\ManticoreMigration\Command\RollbackCommand())->setAliases(['migrate:down']);
 $application->add(new \SiroDiaz\ManticoreMigration\Command\FreshCommand());
 $application->add(new \SiroDiaz\ManticoreMigration\Command\ListPendingCommand());
 $application->add(new \SiroDiaz\ManticoreMigration\Command\ListMigratedCommand());
