@@ -1,4 +1,6 @@
 grumphp:
   tasks:
+    phpunit:
+      config_file: ~
     phpstan:
       configuration: ~
