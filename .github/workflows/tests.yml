@@ -16,7 +16,7 @@ jobs:
         php: [7.4, 8.0, 8.1]
         stability: [prefer-lowest, prefer-stable]
 
-    name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: PHPUnit P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: "Checkout code"
