@@ -1,5 +1,8 @@
 # manticore-migration: under-construction
-Manticoresearch migration tool. Keep updated your index schemas up to date programmatically in your application.
+Manticoresearch migration tool. Keep updated your index schemas up to date using a executable CLI script or integrate it programmatically in your application code.
+
+![migrate and migrate:down](./resources/migrate-migrate-down.gif)
+
 ## project progress and roadmap
   - [ ] Add CI pipeline
     - [ ] Add PHP versions supported
@@ -9,6 +12,10 @@ Manticoresearch migration tool. Keep updated your index schemas up to date progr
       - [ ] 8.1
     - [x] PhpStan
     - [ ] PHPUnit run tests
+  - Pre-commit linter and tests checks
+    - [x] Add Grumphp
+      - [x] PHPStan
+      - [x] PHPUnit
   - [ ] Add a logger implementation
   - [x] Add docker-compose stack files for testing and development
   - [ ] Add code documentation
@@ -65,5 +72,6 @@ In each section of these documentation you will see both: programmatically and C
 ### Rollback migration
 
 ### List migrations applied history
-
+![migration:list:migrated](./resources/migration-list-migrated.gif)
 ### List pending migrations
+![migration:list:pending](./resources/migration-list-pending.gif)
