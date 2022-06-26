@@ -28,7 +28,7 @@ class MigrationDirector
 	 */
 	protected $manticoreConnection;
 
-	/*+
+	/**
 	 * @var MigrationTable
 	 */
 	protected $migrationTable;
@@ -93,6 +93,10 @@ class MigrationDirector
 		return $this;
 	}
 
+	/**
+	 * @param array<int, string> $pendingMigrationFilenames
+	 * @return bool
+	 */
 	protected function hasDuplicatedMigrations(array $pendingMigrationFilenames): bool
 	{
 		if (count($pendingMigrationFilenames) === 0) {
@@ -105,7 +109,8 @@ class MigrationDirector
 	}
 
 	/**
-	 * @return array
+	 * @return MigrationMetadata[]
+	 * @throws Exception
 	 */
 	public function getPendingMigrations(): array
 	{
@@ -217,6 +222,11 @@ class MigrationDirector
 		}
 	}
 
+	/**
+	 *
+	 * @var MigrationMetadata[]
+	 * @return void
+	 */
 	protected function runPendingMigrations(array $pendingMigrations): void
 	{
 		$nextVersion = $this->migrationTable->getNextVersion();
@@ -255,9 +265,7 @@ class MigrationDirector
 	{
 		$latestVersion = $this->getMigrationTable()->getLatestVersion();
 
-		$migrationsToUndo = $this->migrationTable->getMigrationsToUndo(
-			$latestVersion,
-		);
+		$migrationsToUndo = $this->migrationTable->getMigrationsToUndo();
 
 		$migrationsEntities = array_reverse(array_map(function ($migration) {
 			return new MigrationEntity(
