@@ -1,8 +1,6 @@
 <?php
 
-use SiroDiaz\ManticoreMigration\Indexer\Indexer;
 use SiroDiaz\ManticoreMigration\Migration;
-use SiroDiaz\ManticoreMigration\Runner\ManticoreRunner;
 
 class CreateUsersIndex extends Migration
 {
