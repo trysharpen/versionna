@@ -168,7 +168,7 @@ class MigrationTable {
 
 	/**
 	 *
-	 * @return \stdClass[]
+	 * @return array|\stdClass[]
 	 * @throws PDOException
 	 */
 	public function getMigrationsToUndo(): array
