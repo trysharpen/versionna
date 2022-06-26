@@ -11,7 +11,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
       - [ ] 8.0
       - [ ] 8.1
     - [x] PhpStan
-    - [ ] PHPUnit run tests
+    - [x] PHPUnit run tests
   - Pre-commit linter and tests checks
     - [x] Add Grumphp
       - [x] PHPStan
@@ -21,12 +21,12 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
   - [ ] Add code documentation
   - [ ] Write a complete README file explaining all
   - [ ] Add unit and integration tests
-  - [ ] Add command line interface feature
-    - [ ] Add cli application metadata such as name, description, etc.
+  - [x] Add command line interface feature
+    - [x] Add cli application metadata such as name, description, etc.
     - [x] Created structure of the CLI application
   - [x] Executable script (bin/manticore-migration)
   - [ ] Add commands
-    - [ ] list
+    - [x] list
     - [x] make:migration
     - [x] migration:list:pending
     - [x] migration:list:migrated
@@ -68,9 +68,9 @@ In each section of these documentation you will see both: programmatically and C
 ### Create migration
 
 ### Apply migration
-
+![migrate and migrate:down](./resources/migrate-migrate-down.gif)
 ### Rollback migration
-
+![migrate and migrate:down](./resources/migrate-migrate-down.gif)
 ### List migrations applied history
 ![migration:list:migrated](./resources/migration-list-migrated.gif)
 ### List pending migrations
