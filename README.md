@@ -4,12 +4,11 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
 ![migrate and migrate:down](./resources/migrate-migrate-down.gif)
 
 ## project progress and roadmap
-  - [ ] Add CI pipeline
-    - [ ] Add PHP versions supported
-      - [ ] 7.3
-      - [ ] 7.4
-      - [ ] 8.0
-      - [ ] 8.1
+  - [x] Add CI pipeline
+    - [x] Add PHP versions supported
+      - [x] 7.4
+      - [x] 8.0
+      - [x] 8.1
     - [x] PhpStan
     - [x] PHPUnit run tests
   - Pre-commit linter and tests checks
