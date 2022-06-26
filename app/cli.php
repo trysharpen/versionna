@@ -12,7 +12,7 @@ if (!$autoloader()) {
 
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$application = new Application('manticore-migration is a CLI tool to keep sync database data and rt index schemas with ManticoreSearch');
 
 $application->add(new \SiroDiaz\ManticoreMigration\Command\MigrateCommand())->setAliases(['migrate:up']);
 $application->add(new \SiroDiaz\ManticoreMigration\Command\RollbackCommand())->setAliases(['migrate:down']);
