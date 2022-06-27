@@ -1,4 +1,4 @@
-# manticore-migration: under-construction
+# manticore-migration
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sirodiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/run-tests?label=tests&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3Arun-tests+branch%3Amain)
