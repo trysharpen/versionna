@@ -1,4 +1,10 @@
 # manticore-migration: under-construction
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/sirodiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/run-tests?label=tests&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/SiroDiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
+
 Manticoresearch migration tool. Keep updated your index schemas up to date using a executable CLI script or integrate it programmatically in your application code.
 
 ![migrate and migrate:down](./resources/migrate-migrate-down.gif)
