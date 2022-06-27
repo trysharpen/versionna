@@ -1,4 +1,4 @@
-name: "Run PHPUnit tests"
+name: tests
 
 on:
   push:

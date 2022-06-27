@@ -1,4 +1,4 @@
-name: "Run PHPStan"
+name: phpstan
 
 on:
   push:
