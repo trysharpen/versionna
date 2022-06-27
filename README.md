@@ -52,12 +52,16 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
   - [ ] Create a Symfony package
 ## Installation
 
-```composer require sirodiaz/manticore-migration```
+```sh
+composer require sirodiaz/manticore-migration
+```
 
 ## Usage
 First of all, you need to install the package.
 
-```composer require sirodiaz/manticore-migration```
+```sh
+composer require sirodiaz/manticore-migration
+```
 
 After been installed, you need to create a directory.
 That directory will contain the migration files sorted by creation date.
