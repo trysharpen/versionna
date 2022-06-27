@@ -12,10 +12,10 @@ class MigrationEntity
      */
     protected $name;
 
-	/**
-	 * @var int
-	 */
-	protected $version;
+    /**
+     * @var int
+     */
+    protected $version;
 
     /**
      *
@@ -36,60 +36,60 @@ class MigrationEntity
         $this->created_at = $created_at;
     }
 
-	public static function fromArray(array $data): static
-	{
-		return new static(
-			$data['migration_name'],
-			$data['version'],
-			$data['description'],
-			new DateTime($data['created_at']),
-		);
-	}
+    public static function fromArray(array $data): static
+    {
+        return new static(
+            $data['migration_name'],
+            $data['version'],
+            $data['description'],
+            new DateTime($data['created_at']),
+        );
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getName(): string
-	{
-		return $this->name;
-	}
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getVersion(): int
-	{
-		return $this->version;
-	}
+    /**
+     * @return int
+     */
+    public function getVersion(): int
+    {
+        return $this->version;
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public function getDescription(): ?string
-	{
-		return $this->description;
-	}
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
-	/**
-	 * @return DateTime|null
-	 */
-	public function getCreatedAt(): ?DateTime
-	{
-		return $this->created_at;
-	}
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->created_at;
+    }
 
-	public function generateCreatedAt(): void
-	{
-		$this->created_at = new DateTime();
-	}
+    public function generateCreatedAt(): void
+    {
+        $this->created_at = new DateTime();
+    }
 
-	public function toArray()
-	{
-		return [
-			'migration_name' => $this->name,
-			'version' => $this->version,
-			'description' => $this->description,
-			'created_at' => $this->created_at->format('Y-m-d h:i:s'),
-		];
-	}
+    public function toArray()
+    {
+        return [
+            'migration_name' => $this->name,
+            'version' => $this->version,
+            'description' => $this->description,
+            'created_at' => $this->created_at->format('Y-m-d h:i:s'),
+        ];
+    }
 }

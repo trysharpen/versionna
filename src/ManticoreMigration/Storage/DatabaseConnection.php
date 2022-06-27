@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace SiroDiaz\ManticoreMigration\Storage;
 
@@ -7,14 +9,14 @@ use PDOException;
 
 class DatabaseConnection
 {
-	/**
-	 * @var PDO
-	 */
+    /**
+     * @var PDO
+     */
     private $connection;
 
-	/**
-	 * @var DatabaseConfiguration
-	 */
+    /**
+     * @var DatabaseConfiguration
+     */
     private $configuration;
 
     public function __construct(DatabaseConfiguration $configuration)
@@ -23,67 +25,68 @@ class DatabaseConnection
         $this->build();
     }
 
-	protected function createConnectionByType()
-	{
-		switch ($this->configuration->getDriver()) {
-			case 'sqlite':
-				$this->connection = $this->createSQLiteConnection();
-				break;
-			default:
-				$this->connection = $this->createConnection();
-		}
-	}
+    protected function createConnectionByType()
+    {
+        switch ($this->configuration->getDriver()) {
+            case 'sqlite':
+                $this->connection = $this->createSQLiteConnection();
 
-	protected function createSQLiteConnection()
-	{
-		return new PDO(
-			"sqlite:{$this->configuration->getDatabase()}",
-			null,
-			null,
-			[
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-				PDO::ATTR_EMULATE_PREPARES => false,
-			]
-		);
-	}
+                break;
+            default:
+                $this->connection = $this->createConnection();
+        }
+    }
 
-	protected function createConnection()
-	{
-		return new PDO(
-			$this->configuration->getDsn(),
-			$this->configuration->getUser(),
-			$this->configuration->getPassword(),
-			[
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-				PDO::ATTR_EMULATE_PREPARES => false,
-			]
-		);
-	}
+    protected function createSQLiteConnection()
+    {
+        return new PDO(
+            "sqlite:{$this->configuration->getDatabase()}",
+            null,
+            null,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+    }
 
-	/**
+    protected function createConnection()
+    {
+        return new PDO(
+            $this->configuration->getDsn(),
+            $this->configuration->getUser(),
+            $this->configuration->getPassword(),
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+    }
+
+    /**
      * @throws PDOException
      * @return void
      */
     private function build(): void
     {
-		$this->createConnectionByType();
-	}
+        $this->createConnectionByType();
+    }
 
-	/**
-	 * @return DatabaseConfiguration
-	 */
-	public function getConfiguration(): DatabaseConfiguration
-	{
-		return $this->configuration;
-	}
+    /**
+     * @return DatabaseConfiguration
+     */
+    public function getConfiguration(): DatabaseConfiguration
+    {
+        return $this->configuration;
+    }
 
-	/**
-	 * @return PDO
-	 */
-	public function getConnection(): PDO
-	{
-		return $this->connection;
-	}
+    /**
+     * @return PDO
+     */
+    public function getConnection(): PDO
+    {
+        return $this->connection;
+    }
 }

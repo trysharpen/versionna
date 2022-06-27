@@ -5,7 +5,6 @@ namespace SiroDiaz\ManticoreMigration\Storage;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\InvalidDsnException;
 
-
 final class DatabaseConfiguration
 {
     /**
@@ -104,9 +103,9 @@ final class DatabaseConfiguration
 
     public function getDsn(): string
     {
-		if ($this->getDriver() === 'sqlite') {
-			return $this->getDriver() . ':' . $this->getDatabase();
-		}
+        if ($this->getDriver() === 'sqlite') {
+            return $this->getDriver() . ':' . $this->getDatabase();
+        }
 
         $dsn = $this->driver . ':';
         $dsn .= 'host=' . $this->host . ';';

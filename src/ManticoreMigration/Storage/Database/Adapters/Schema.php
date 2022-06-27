@@ -7,27 +7,27 @@ use SiroDiaz\ManticoreMigration\Storage\Database\Adapters\Schema\CreateSchema;
 
 abstract class Schema implements CreateSchema
 {
-	/**
-	 *
-	 * @var PDO
-	 */
-	protected $connection;
+    /**
+     *
+     * @var PDO
+     */
+    protected $connection;
 
-	/**
-	 * @var string
-	 */
-	protected $tableName;
+    /**
+     * @var string
+     */
+    protected $tableName;
 
-	public function __construct(PDO $connection, string $tableName)
-	{
-		$this->connection = $connection;
-		$this->tableName = $tableName;
-	}
+    public function __construct(PDO $connection, string $tableName)
+    {
+        $this->connection = $connection;
+        $this->tableName = $tableName;
+    }
 
-	public function getConnection()
-	{
-		return $this->connection;
-	}
+    public function getConnection()
+    {
+        return $this->connection;
+    }
 
-	abstract public function existsTable(): bool;
+    abstract public function existsTable(): bool;
 }

@@ -4,9 +4,9 @@ namespace SiroDiaz\ManticoreMigration\Storage\Database\Adapters;
 
 class Pgsql extends Schema
 {
-	public function createTable(): void
-	{
-		$this->connection->exec(<<<SQL
+    public function createTable(): void
+    {
+        $this->connection->exec(<<<SQL
 			CREATE TABLE IF NOT EXISTS {$this->tableName} (
 				id SERIAL PRIMARY KEY,
 				version INT NOT NULL,
@@ -15,11 +15,11 @@ class Pgsql extends Schema
 				created_at TIMESTAMP NOT NULL
 			)
 		SQL);
-	}
+    }
 
-	public function existsTable(): bool
-	{
-		$query = <<<SQL
+    public function existsTable(): bool
+    {
+        $query = <<<SQL
 		SELECT EXISTS (
 			SELECT FROM
 				pg_tables
@@ -29,10 +29,10 @@ class Pgsql extends Schema
 		)
 		SQL;
 
-		$statement = $this->connection->prepare($query);
-		$statement->bindValue(':tablename', $this->tableName);
-		$statement->execute();
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue(':tablename', $this->tableName);
+        $statement->execute();
 
-		return $statement->fetchColumn() !== false;
-	}
+        return $statement->fetchColumn() !== false;
+    }
 }

@@ -9,16 +9,14 @@ use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
 use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
 use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class MigrateCommand extends AbstractCommand
 {
-	protected static $defaultName = 'migrate';
+    protected static $defaultName = 'migrate';
 
-	/**
+    /**
      * {@inheritDoc}
      *
      * @return void
@@ -35,55 +33,55 @@ class MigrateCommand extends AbstractCommand
             ));
     }
 
-	protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-		$commandExitCode = parent::execute($input, $output);
+        $commandExitCode = parent::execute($input, $output);
 
-		if ($commandExitCode !== Command::SUCCESS) {
-			return $commandExitCode;
-		}
+        if ($commandExitCode !== Command::SUCCESS) {
+            return $commandExitCode;
+        }
 
-		$dbConnection = new DatabaseConnection(
-			DatabaseConfiguration::fromArray(
-				$this->configuration['connections'][$this->connection]
-			)
-		);
+        $dbConnection = new DatabaseConnection(
+            DatabaseConfiguration::fromArray(
+                $this->configuration['connections'][$this->connection]
+            )
+        );
 
-		$manticoreConnection = new ManticoreConnection(
-			$this->configuration['manticore_connection']['host'],
-			$this->configuration['manticore_connection']['port'],
-		);
+        $manticoreConnection = new ManticoreConnection(
+            $this->configuration['manticore_connection']['host'],
+            $this->configuration['manticore_connection']['port'],
+        );
 
-		$migrationTable = new MigrationTable(
-			$dbConnection,
-			$this->configuration['table_prefix'],
-			$this->configuration['migration_table'],
-		);
+        $migrationTable = new MigrationTable(
+            $dbConnection,
+            $this->configuration['table_prefix'],
+            $this->configuration['migration_table'],
+        );
 
-		$director = new MigrationDirector();
+        $director = new MigrationDirector();
 
-		$director
-			->dbConnection($dbConnection)
-			->manticoreConnection($manticoreConnection)
-			->migrationsPath($this->configuration['migrations_path'])
-			->migrationTable($migrationTable);
+        $director
+            ->dbConnection($dbConnection)
+            ->manticoreConnection($manticoreConnection)
+            ->migrationsPath($this->configuration['migrations_path'])
+            ->migrationTable($migrationTable);
 
-		if (!$migrationTable->exists()) {
-			$output->writeln('<info>Migration table doesn\'t exist</info>');
-		} elseif (!$director->hasPendingMigrations()) {
-			$output->writeln('<info>No pending migrations</info>');
-			return Command::SUCCESS;
-		}
+        if (! $migrationTable->exists()) {
+            $output->writeln('<info>Migration table doesn\'t exist</info>');
+        } elseif (! $director->hasPendingMigrations()) {
+            $output->writeln('<info>No pending migrations</info>');
 
-		try {
-			$director->migrate();
-		} catch (Exception $exception) {
-			$output->writeln($exception->getMessage());
+            return Command::SUCCESS;
+        }
 
-			return Command::FAILURE;
-		}
+        try {
+            $director->migrate();
+        } catch (Exception $exception) {
+            $output->writeln($exception->getMessage());
 
-		return Command::SUCCESS;
-	}
+            return Command::FAILURE;
+        }
 
+        return Command::SUCCESS;
+    }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace SiroDiaz\ManticoreMigration;
 
@@ -7,34 +9,33 @@ use SiroDiaz\ManticoreMigration\Runner\Runner;
 
 abstract class Migration
 {
+    /**
+     * @var Runner
+     */
+    protected $runner;
 
-	/**
-	 * @var Runner
-	 */
-	protected $runner;
+    /**
+     * @var Indexer
+     */
+    protected $indexer;
 
-	/**
-	 * @var Indexer
-	 */
-	protected $indexer;
+    /**
+     * @var string
+     */
+    public $description = '';
 
-	/**
-	 * @var string
-	 */
-	public $description = '';
+    public function __construct(Runner $runner, Indexer $indexer)
+    {
+        $this->runner = $runner;
+        $this->indexer = $indexer;
+    }
 
-	public function __construct(Runner $runner, Indexer $indexer)
-	{
-		$this->runner = $runner;
-		$this->indexer = $indexer;
-	}
+    abstract public function up(): void;
 
-	public abstract function up(): void;
+    abstract public function down(): void;
 
-	public abstract function down(): void;
-
-	public function __toString(): string
-	{
-		return get_class($this);
-	}
+    public function __toString(): string
+    {
+        return get_class($this);
+    }
 }

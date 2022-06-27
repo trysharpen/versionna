@@ -6,26 +6,26 @@ use ManticoreSearch\Client;
 
 class ManticoreConnection
 {
-	private $configuration;
+    private $configuration;
 
-	/**
-	 * @var Client
-	 */
-	private $client;
+    /**
+     * @var Client
+     */
+    private $client;
 
     public function __construct(array $configuration)
-	{
-		$this->configuration = $configuration;
-		$this->client = new Client($configuration);
-	}
+    {
+        $this->configuration = $configuration;
+        $this->client = new Client($configuration);
+    }
 
-	public function getClient(): Client
-	{
-		return $this->client;
-	}
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
 
-	public function getConfiguration(): array
-	{
-		return $this->configuration;
-	}
+    public function getConfiguration(): array
+    {
+        return $this->configuration;
+    }
 }

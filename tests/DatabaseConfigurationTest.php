@@ -4,7 +4,6 @@ namespace SiroDiaz\ManticoreMigration\Tests;
 
 use PHPUnit\Framework\TestCase;
 use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
 
 class DatabaseConfigurationTest extends TestCase
 {
