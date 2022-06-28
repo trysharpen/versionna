@@ -32,6 +32,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
   - [x] Executable script (bin/manticore-migration)
   - [ ] Add commands
     - [x] list
+    - [ ] make:config
     - [x] make:migration
     - [x] migration:list:pending
     - [x] migration:list:migrated
@@ -76,11 +77,97 @@ You can create your own integration with `manticore-migration` using the program
 In each section of these documentation you will see both: programmatically and CLI version to create, migrate, rollback, list applied and pending migrations.
 ### Create migration
 
-### Apply migration
+#### CLI
+To create a migration file you have to use the make:migration and the class name (the migration class name that extends Migration class) using
+snake_case_style.
+This class name should be a descriptive name. It's better a long name for two reasons:
+  - to better understand what the migration does
+  - and for avoid duplicated class names
+```sh
+./vendor/bin/manticore-migration make:migration -c config.php create_products_index
+```
+
+#### programmatically
+
+```php
+<?php
+
+```
+
+
+### Apply migrations
 ![migrate and migrate:down](./resources/migrate-migrate-down.gif)
+
+#### CLI
+
+There are two available commands for apply pending migrations using the Command Line Interface
+
+```sh
+./vendor/bin/manticore-migration migrate -c config.php
+```
+
+```sh
+./vendor/bin/manticore-migration migrate:up -c config.php
+```
+
+#### programmatically
+
+```php
+<?php
+
+```
+
 ### Rollback migration
 ![migrate and migrate:down](./resources/migrate-migrate-down.gif)
+
+#### CLI
+
+There are two available commands to rollback applied migrations using the Command Line Interface
+
+```sh
+./vendor/bin/manticore-migration rollback -c config.php
+```
+
+```sh
+./vendor/bin/manticore-migration migrate:down -c config.php
+```
+
+#### programmatically
+
+```php
+<?php
+
+```
 ### List migrations applied history
 ![migration:list:migrated](./resources/migration-list-migrated.gif)
+
+#### CLI
+
+For list pending migrations using the Command Line tool
+
+```sh
+./vendor/bin/manticore-migration migration:list:pending -c config.php
+```
+#### programmatically
+
+```php
+<?php
+
+```
+
 ### List pending migrations
 ![migration:list:pending](./resources/migration-list-pending.gif)
+
+#### CLI
+
+For list pending migrations using the Command Line tool
+
+```sh
+./vendor/bin/manticore-migration migration:list:pending -c config.php
+```
+#### programmatically
+
+```php
+<?php
+
+```
