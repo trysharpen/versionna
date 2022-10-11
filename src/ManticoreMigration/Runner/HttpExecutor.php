@@ -15,7 +15,6 @@ class HttpRunner implements ManticoreRunner
 
     public function execute(string $sql): void
     {
-
         // $dsn = $this->configuration->getDsn();
         // $dsn->setUser($this->configuration->getUser());
         // $dsn->setPassword($this->configuration->getPassword());
