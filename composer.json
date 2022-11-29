@@ -33,11 +33,18 @@
     },
 	"bin": ["bin/manticore-migrator"],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpro/grumphp-shim": true
+        }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test:watch": "vendor/bin/phpunit --watch",
+        "test:watch": [
+			"Composer\\Config::disableProcessTimeout",
+			"phpunit-watcher watch"
+		],
+		"lint": "vendor/bin/phpstan",
 		"cs-fix": "vendor/bin/php-cs-fixer fix --config .php_cs.dist.php --allow-risky=yes"
     },
     "minimum-stability": "dev",
