@@ -83,7 +83,7 @@ class MigrationEntity
         $this->created_at = new DateTime();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'migration_name' => $this->name,

@@ -8,44 +8,44 @@ use SiroDiaz\ManticoreMigration\Runner\Loader;
 
 class MigrationCreator
 {
-	protected string $migrationsPath;
+    protected string $migrationsPath;
 
-	protected string $name;
+    protected string $name;
 
-	protected string $description;
+    protected string $description;
 
-	protected DateTime|null $createdAt;
+    protected DateTime|null $createdAt;
 
-	public function __construct(string $migrationsPath, string $name, string $description = '', DateTime $createdAt = null)
-	{
-		$this->migrationsPath = $migrationsPath;
-		$this->name = $name;
-		$this->description = $description;
-		$this->createdAt = $createdAt ?? new DateTime();
-	}
+    public function __construct(string $migrationsPath, string $name, string $description = '', DateTime $createdAt = null)
+    {
+        $this->migrationsPath = $migrationsPath;
+        $this->name = $name;
+        $this->description = $description;
+        $this->createdAt = $createdAt ?? new DateTime();
+    }
 
-	public function setCreatedAt(DateTime $createdAt): MigrationCreator
-	{
-		$this->createdAt = $createdAt;
+    public function setCreatedAt(DateTime $createdAt): MigrationCreator
+    {
+        $this->createdAt = $createdAt;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	protected function generateMigrationFilename(): string
-	{
-		return $this->createdAt->format('Y_m_d_His') . '_' . $this->name . '.php';
-	}
+    public function generateMigrationFilename(): string
+    {
+        return $this->createdAt->format('Y_m_d_His') . '_' . $this->name . '.php';
+    }
 
-	protected function getMigrationFullPath(): string
-	{
-		return $this->migrationsPath . DIRECTORY_SEPARATOR . $this->generateMigrationFilename();
-	}
+    public function getMigrationFullPath(): string
+    {
+        return $this->migrationsPath . DIRECTORY_SEPARATOR . $this->generateMigrationFilename();
+    }
 
-	protected function renderMigrationTemplate(): string
-	{
-		$migrationClassName = Loader::getMigrationClassName($this->getMigrationFullPath());
+    protected function renderMigrationTemplate(): string
+    {
+        $migrationClassName = Loader::getMigrationClassName($this->getMigrationFullPath());
 
-		return <<<PHP
+        return <<<PHP
 <?php
 
 use SiroDiaz\ManticoreMigration\Migration;
@@ -69,21 +69,21 @@ class {$migrationClassName} extends Migration
 	}
 }
 PHP;
-	}
+    }
 
-	public function create(): bool
-	{
-		if (file_exists($this->getMigrationFullPath())) {
-			throw new Exception('Migration already exists');
-		}
+    public function create(): bool
+    {
+        if (file_exists($this->getMigrationFullPath())) {
+            throw new Exception('Migration already exists');
+        }
 
-		return file_put_contents($this->getMigrationFullPath(), $this->renderMigrationTemplate()) !== false;
-	}
+        return boolval(file_put_contents($this->getMigrationFullPath(), $this->renderMigrationTemplate()));
+    }
 
-	protected function exists(): bool
-	{
-		return file_exists(
-			$this->migrationsPath . DIRECTORY_SEPARATOR . $this->name . '.php'
-		);
-	}
+    protected function exists(): bool
+    {
+        return file_exists(
+            $this->migrationsPath . DIRECTORY_SEPARATOR . $this->name . '.php'
+        );
+    }
 }

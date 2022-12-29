@@ -40,7 +40,11 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test:watch": "vendor/bin/phpunit --watch",
+        "test:watch": [
+			"Composer\\Config::disableProcessTimeout",
+			"phpunit-watcher watch"
+		],
+		"lint": "vendor/bin/phpstan",
 		"cs-fix": "vendor/bin/php-cs-fixer fix --config .php_cs.dist.php --allow-risky=yes"
     },
     "minimum-stability": "dev",
