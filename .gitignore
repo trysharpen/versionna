@@ -13,6 +13,7 @@ composer.lock
 # Generated files
 .phpunit.result.cache
 .phpunit.cache
+.php-cs-fixer.cache
 
 # PHPUnit
 /app/phpunit.xml

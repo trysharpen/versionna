@@ -8,13 +8,13 @@ use SiroDiaz\ManticoreMigration\Runner\Loader;
 
 class MigrationCreator
 {
-	protected $migrationsPath;
+	protected string $migrationsPath;
 
-	protected $name;
+	protected string $name;
 
-	protected $description;
+	protected string $description;
 
-	protected $createdAt;
+	protected DateTime|null $createdAt;
 
 	public function __construct(string $migrationsPath, string $name, string $description = '', DateTime $createdAt = null)
 	{
@@ -82,8 +82,8 @@ PHP;
 
 	protected function exists(): bool
 	{
-		file_exists($this->migrationsPath . DIRECTORY_SEPARATOR . $this->name . '.php');
-
-		return true;
+		return file_exists(
+			$this->migrationsPath . DIRECTORY_SEPARATOR . $this->name . '.php'
+		);
 	}
 }

@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.0",
         "manticoresoftware/manticoresearch-php": "^1.8",
         "nyholm/dsn": "^2.0",
         "symfony/console": "^5.4.9"
@@ -33,7 +33,10 @@
     },
 	"bin": ["bin/manticore-migrator"],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpro/grumphp-shim": false
+        }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
