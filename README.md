@@ -1,8 +1,9 @@
 # manticore-migration
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sirodiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/tests?label=tests&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3Atests+branch%3Amain)
+[![tests](https://github.com/SiroDiaz/manticore-migration/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/SiroDiaz/manticore-migration/actions/workflows/tests.yml)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![PHPStan Code Styling](https://github.com/SiroDiaz/manticore-migration/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/SiroDiaz/manticore-migration/actions/workflows/phpstan.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/SiroDiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
 
 Manticoresearch migration tool. Keep updated your index schemas up to date using an executable CLI script or integrate it programmatically in your application code.
@@ -34,9 +35,9 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
 ## project progress and roadmap
   - [x] Add CI pipeline
     - [x] Add PHP versions supported
-      - [x] 7.4
       - [x] 8.0
       - [x] 8.1
+      - [x] 8.2
     - [x] PhpStan
     - [x] PHPUnit run tests
   - Pre-commit linter and tests checks
