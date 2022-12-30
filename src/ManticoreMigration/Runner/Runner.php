@@ -4,5 +4,10 @@ namespace SiroDiaz\ManticoreMigration\Runner;
 
 interface Runner
 {
-    public function execute(string $query): array;
+	/**
+	 *
+	 * @param string $query
+	 * @return array<mixed>
+	 */
+	public function execute(string $query): array;
 }

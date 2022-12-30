@@ -8,80 +8,88 @@ use SiroDiaz\ManticoreMigration\Migration;
 
 class MigrationMetadata
 {
-    protected $migrationFullFilePath;
+	protected string $migrationFullFilePath;
 
-    protected $filename;
+	protected string $filename;
 
-    protected $namespace;
+	protected string|null $namespace;
 
-    protected $className;
+	protected string $className;
 
-    public function __construct(string $migrationFullFilePath, string $filename, string $className, $namespace = null)
-    {
-        $this->migrationFullFilePath = $migrationFullFilePath;
-        $this->filename = $filename;
-        $this->className = $className;
-        $this->namespace = $namespace;
-    }
+	/**
+	 *
+	 * @param string $migrationFullFilePath
+	 * @param string $filename
+	 * @param string $className
+	 * @param string|null $namespace
+	 * @return void
+	 */
+	public function __construct(string $migrationFullFilePath, string $filename, string $className, $namespace = null)
+	{
+		$this->migrationFullFilePath = $migrationFullFilePath;
+		$this->filename = $filename;
+		$this->className = $className;
+		$this->namespace = $namespace;
+	}
 
-    public function getMigrationFullFilePath(): string
-    {
-        return $this->migrationFullFilePath;
-    }
+	public function getMigrationFullFilePath(): string
+	{
+		return $this->migrationFullFilePath;
+	}
 
-    public function getFilename(): string
-    {
-        return $this->filename;
-    }
+	public function getFilename(): string
+	{
+		return $this->filename;
+	}
 
-    public function getClassName(): string
-    {
-        return $this->className;
-    }
+	public function getClassName(): string
+	{
+		return $this->className;
+	}
 
-    public function buildOriginalFilePath(): string
-    {
-        $migrationFileFullPath = $this->migrationFullFilePath;
+	public function buildOriginalFilePath(): string
+	{
+		$migrationFileFullPath = $this->migrationFullFilePath;
 
-        if (strpos($this->filename, '.php') === false) {
-            // return $migrationFileFullPath '.php';
-        }
+		if (strpos($this->filename, '.php') === false) {
+			// return $migrationFileFullPath '.php';
+		}
 
-        return $migrationFileFullPath;
-    }
+		return $migrationFileFullPath;
+	}
 
-    /**
-     * @return null|string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
+	/**
+	 * @return string|null
+	 */
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
 
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return ! $this->getNamespace()
-            ? $this->getClassName()
-            : $this->getNamespace() . '\\' . $this->getClassName();
-    }
+	/**
+	 * @return string
+	 */
+	public function getClass(): string
+	{
+		return !$this->getNamespace()
+			? $this->getClassName()
+			: $this->getNamespace() . '\\' . $this->getClassName();
+	}
 
-    /**
-     * @return Migration
-     * @throws Exception
-     */
-    public function getClassInstance(Runner $runner, Indexer $indexer): Migration
-    {
-        $class = $this->getClass();
+	/**
+	 * @return Migration
+	 * @throws Exception
+	 */
+	public function getClassInstance(Runner $runner, Indexer $indexer): Migration
+	{
+		$class = $this->getClass();
 
-        $instance = new $class($runner, $indexer);
+		$instance = new $class($runner, $indexer);
 
-        if (! ($instance instanceof Migration)) {
-            throw new Exception('Migration class must be an instance of Migration');
-        }
+		if (!($instance instanceof Migration)) {
+			throw new Exception('Migration class must be an instance of Migration');
+		}
 
-        return $instance;
-    }
+		return $instance;
+	}
 }

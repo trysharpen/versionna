@@ -7,112 +7,101 @@ use Nyholm\Dsn\Exception\InvalidDsnException;
 
 final class DatabaseConfiguration
 {
-    /**
-     * @var string
-     */
-    private $driver;
+	private string $driver;
 
-    /**
-     * @var string
-     */
-    private $host;
+	private string $host;
 
-    /**
-     * @var string
-     */
-    private $dbname;
+	private string $port;
 
-    /**
-     * @var ?string
-     */
-    private $user;
+	private string $dbname;
 
-    /**
-     * @var ?string
-     */
-    private $password;
+	private ?string $user;
 
-    /**
-     * @var array
-     */
-    private $params;
+	private ?string $password;
 
-    /**
-     * @param string|array $config Configuration array or string uri
-     */
-    public function __construct($config = [])
-    {
-        $this->driver = $config['driver'] ?? 'mysql';
-        $this->host = $config['host'] ?? 'localhost';
-        $this->port = $config['port'] ?? '3306';
-        $this->dbname = $config['database'] ?? 'manticore';
-        $this->user = $config['user'] ?? null;
-        $this->password = $config['password'] ?? null;
-        $this->params = $config['params'] ?? [];
-    }
+	// private array $params;
 
-    /**
-     * @param string $dsn DSN string
-     * @throws InvalidDsnException
-     * @return DatabaseConfiguration
-     */
-    public static function fromDsn(string $dsn): static
-    {
-        $config = [];
-        $dsnParsed = DsnParser::parse($dsn);
+	/**
+	 * @param string|array<string,mixed> $config Configuration array or string uri
+	 */
+	public function __construct($config = [])
+	{
+		$this->driver = $config['driver'] ?? 'mysql';
+		$this->host = $config['host'] ?? 'localhost';
+		$this->port = $config['port'] ?? '3306';
+		$this->dbname = $config['database'] ?? 'manticore';
+		$this->user = $config['user'] ?? null;
+		$this->password = $config['password'] ?? null;
+		// $this->params = $config['params'] ?? [];
+	}
 
-        $config['driver'] = $dsnParsed->getScheme();
-        $config['host'] = $dsnParsed->getHost();
-        $config['dbname'] = $dsnParsed->getPath();
-        $config['user'] = $dsnParsed->getUser();
-        $config['password'] = $dsnParsed->getPassword();
-        $config['params'] = $dsnParsed->getParameters();
+	/**
+	 * @param string $dsn DSN string
+	 * @throws InvalidDsnException
+	 * @return DatabaseConfiguration
+	 */
+	public static function fromDsn(string $dsn): self
+	{
+		$config = [];
+		$dsnParsed = DsnParser::parse($dsn);
 
-        return new DatabaseConfiguration($config);
-    }
+		$config['driver'] = $dsnParsed->getScheme();
+		$config['host'] = $dsnParsed->getHost();
+		$config['dbname'] = $dsnParsed->getPath();
+		$config['user'] = $dsnParsed->getUser();
+		$config['password'] = $dsnParsed->getPassword();
+		$config['params'] = $dsnParsed->getParameters();
 
-    public static function fromArray(array $config): static
-    {
-        return new static($config);
-    }
+		return new DatabaseConfiguration($config);
+	}
 
-    public function getDriver(): string
-    {
-        return $this->driver;
-    }
+	/**
+	 *
+	 * @param array<string,mixed> $config
+	 * @return DatabaseConfiguration
+	 */
+	public static function fromArray(array $config): self
+	{
+		return new self($config);
+	}
 
-    public function getHost(): string
-    {
-        return $this->host;
-    }
+	public function getDriver(): string
+	{
+		return $this->driver;
+	}
 
-    public function getDatabase(): string
-    {
-        return $this->dbname;
-    }
+	public function getHost(): string
+	{
+		return $this->host;
+	}
 
-    public function getUser(): ?string
-    {
-        return $this->user;
-    }
+	public function getDatabase(): string
+	{
+		return $this->dbname;
+	}
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
+	public function getUser(): ?string
+	{
+		return $this->user;
+	}
 
-    public function getDsn(): string
-    {
-        if ($this->getDriver() === 'sqlite') {
-            return $this->getDriver() . ':' . $this->getDatabase();
-        }
+	public function getPassword(): ?string
+	{
+		return $this->password;
+	}
 
-        $dsn = $this->driver . ':';
-        $dsn .= 'host=' . $this->host . ';';
-        $dsn .= 'port=' . $this->port . ';';
-        $dsn .= 'dbname=' . $this->dbname . ';';
-        //$dsn .= 'charset=utf8mb4';
+	public function getDsn(): string
+	{
+		if ($this->getDriver() === 'sqlite') {
+			return $this->getDriver() . ':' . $this->getDatabase();
+		}
 
-        return $dsn;
-    }
+		$dsn = $this->driver . ':';
+		$dsn .= 'host=' . $this->host . ';';
+		$dsn .= 'port=' . $this->port . ';';
+		$dsn .= 'dbname=' . $this->dbname . ';';
+		//$dsn .= 'charset=utf8mb4';
+
+		return $dsn;
+	}
 }
