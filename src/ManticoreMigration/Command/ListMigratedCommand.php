@@ -13,68 +13,68 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ListMigratedCommand extends AbstractCommand
 {
-    protected static $defaultName = 'migration:list:migrated';
+	protected static $defaultName = 'migration:list:migrated';
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return void
-     */
-    protected function configure()
-    {
-        parent::configure();
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return void
+	 */
+	protected function configure(): void
+	{
+		parent::configure();
 
-        $this->setDescription('Lists Manticoresearch migrations applied')
-            ->setHelp(sprintf(
-                '%sLists Manticoresearch migrations applied%s',
-                PHP_EOL,
-                PHP_EOL
-            ));
+		$this->setDescription('Lists Manticoresearch migrations applied')
+			->setHelp(sprintf(
+				'%sLists Manticoresearch migrations applied%s',
+				PHP_EOL,
+				PHP_EOL
+			));
 
-        $this->addOption('--ascending', '-asc', InputOption::VALUE_NONE, 'Sort in ascending order (default is descending)');
-    }
+		$this->addOption('--ascending', '-asc', InputOption::VALUE_NONE, 'Sort in ascending order (default is descending)');
+	}
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $commandExitCode = parent::execute($input, $output);
+	protected function execute(InputInterface $input, OutputInterface $output): int
+	{
+		$commandExitCode = parent::execute($input, $output);
 
-        if ($commandExitCode !== Command::SUCCESS) {
-            return $commandExitCode;
-        }
+		if ($commandExitCode !== Command::SUCCESS) {
+			return $commandExitCode;
+		}
 
-        $dbConnection = new DatabaseConnection(
-            DatabaseConfiguration::fromArray(
-                $this->configuration['connections'][$this->connection]
-            )
-        );
+		$dbConnection = new DatabaseConnection(
+			DatabaseConfiguration::fromArray(
+				$this->configuration['connections'][$this->connection]
+			)
+		);
 
-        $migrationTable = new MigrationTable(
-            $dbConnection,
-            $this->configuration['table_prefix'],
-            $this->configuration['migration_table']
-        );
+		$migrationTable = new MigrationTable(
+			$dbConnection,
+			$this->configuration['table_prefix'],
+			$this->configuration['migration_table']
+		);
 
-        $migrations = $migrationTable->getAll($input->getOption('ascending'));
+		$migrations = $migrationTable->getAll($input->getOption('ascending'));
 
-        $io = new SymfonyStyle($input, $output);
-        $io->writeln('');
+		$io = new SymfonyStyle($input, $output);
+		$io->writeln('');
 
-        if ($migrations) {
-            $migrationsDone = array_map(
-                function ($migration) {
-                    return $migration->toArray();
-                },
-                $migrations,
-            );
+		if ($migrations) {
+			$migrationsDone = array_map(
+				function ($migration) {
+					return $migration->toArray();
+				},
+				$migrations,
+			);
 
-            $io->table(
-                MigrationTable::LISTABLE_COLUMNS,
-                $migrationsDone,
-            );
-        } else {
-            $io->writeln('<info>The migration table is empty</info>');
-        }
+			$io->table(
+				MigrationTable::LISTABLE_COLUMNS,
+				$migrationsDone,
+			);
+		} else {
+			$io->writeln('<info>The migration table is empty</info>');
+		}
 
-        return Command::SUCCESS;
-    }
+		return Command::SUCCESS;
+	}
 }
