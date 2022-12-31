@@ -1,6 +1,6 @@
 <?php
 
-use SiroDiaz\ManticoreMigration\Migration;
+use Sharpen\Versionna\Migration;
 
 class CreateUsersIndex extends Migration
 {
@@ -11,7 +11,8 @@ class CreateUsersIndex extends Migration
 	 *
 	 * @return void
 	 */
-	public function up(): void {
+	public function up(): void
+	{
 		$this->runner->execute('CREATE TABLE users (id bigint, name text, username text, biography text, birthdate timestamp)');
 		$this->indexer->index('users', 'SELECT id, name, username, biography, birthdate FROM users');
 	}
@@ -21,7 +22,8 @@ class CreateUsersIndex extends Migration
 	 *
 	 * @return void
 	 */
-	public function down(): void {
+	public function down(): void
+	{
 		$this->runner->execute('DROP TABLE users');
 	}
 }

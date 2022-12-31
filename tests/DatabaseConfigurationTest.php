@@ -1,9 +1,9 @@
 <?php
 
-namespace SiroDiaz\ManticoreMigration\Tests;
+namespace Sharpen\Versionna\Tests;
 
 use PHPUnit\Framework\TestCase;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
+use Sharpen\Versionna\Storage\DatabaseConfiguration;
 
 class DatabaseConfigurationTest extends TestCase
 {

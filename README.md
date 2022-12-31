@@ -1,17 +1,17 @@
-# manticore-migration
+# versionna
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/sirodiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
-[![tests](https://github.com/SiroDiaz/manticore-migration/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/SiroDiaz/manticore-migration/actions/workflows/tests.yml)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/SiroDiaz/manticore-migration/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/SiroDiaz/manticore-migration/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![PHPStan Code Styling](https://github.com/SiroDiaz/manticore-migration/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/SiroDiaz/manticore-migration/actions/workflows/phpstan.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/SiroDiaz/manticore-migration.svg?style=flat-square)](https://packagist.org/packages/SiroDiaz/manticore-migration)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/sharpen/versionna.svg?style=flat-square)](https://packagist.org/packages/Sharpen/versionna)
+[![tests](https://github.com/Sharpen/versionna/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Sharpen/versionna/actions/workflows/tests.yml)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/Sharpen/versionna/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/Sharpen/versionna/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![PHPStan Code Styling](https://github.com/Sharpen/versionna/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/Sharpen/versionna/actions/workflows/phpstan.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/Sharpen/versionna.svg?style=flat-square)](https://packagist.org/packages/Sharpen/versionna)
 
 Manticoresearch migration tool. Keep updated your index schemas up to date using an executable CLI script or integrate it programmatically in your application code.
 
 ![migrate and migrate:down](./resources/migrate-migrate-down.gif)
 
 # Table of contents
-- [manticore-migration](#manticore-migration)
+- [versionna](#versionna)
 - [Table of contents](#table-of-contents)
   - [project progress and roadmap](#project-progress-and-roadmap)
   - [Installation](#installation)
@@ -52,7 +52,7 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
   - [x] Add command line interface feature
     - [x] Add cli application metadata such as name, description, etc.
     - [x] Created structure of the CLI application
-  - [x] Executable script (bin/manticore-migration)
+  - [x] Executable script (bin/versionna)
   - [ ] Add commands
     - [x] list
     - [ ] make:config
@@ -77,14 +77,14 @@ Manticoresearch migration tool. Keep updated your index schemas up to date using
 ## Installation
 
 ```sh
-composer require sirodiaz/manticore-migration
+composer require sharpen/versionna
 ```
 
 ## Usage
 First of all, you need to install the package.
 
 ```sh
-composer require sirodiaz/manticore-migration
+composer require sharpen/versionna
 ```
 
 After been installed, you need to create a directory.
@@ -95,7 +95,7 @@ You have two different ways to use this package:
   - programmatically
   - CLI
 
-You can create your own integration with `manticore-migration` using the programmatically way as you can see in hte **examples** directory in this repository.
+You can create your own integration with `versionna` using the programmatically way as you can see in hte **examples** directory in this repository.
 
 In each section of these documentation you will see both: programmatically and CLI version to create, migrate, rollback, list applied and pending migrations.
 ### Create migration
@@ -107,7 +107,7 @@ This class name should be a descriptive name. It's better a long name for two re
   - to better understand what the migration does
   - and for avoid duplicated class names
 ```sh
-./vendor/bin/manticore-migration make:migration -c config.php create_products_index
+./vendor/bin/versionna make:migration -c config.php create_products_index
 ```
 
 #### programmatically
@@ -115,7 +115,7 @@ This class name should be a descriptive name. It's better a long name for two re
 ```php
 <?php
 
-use SiroDiaz\ManticoreMigration\MigrationCreator;
+use Sharpen\Versionna\MigrationCreator;
 
 $configuration = require 'config.php';
 
@@ -141,11 +141,11 @@ echo 'Migration created successfully';
 There are two available commands for apply pending migrations using the Command Line Interface
 
 ```sh
-./vendor/bin/manticore-migration migrate -c config.php
+./vendor/bin/versionna migrate -c config.php
 ```
 
 ```sh
-./vendor/bin/manticore-migration migrate:up -c config.php
+./vendor/bin/versionna migrate:up -c config.php
 ```
 
 #### programmatically
@@ -153,11 +153,11 @@ There are two available commands for apply pending migrations using the Command 
 ```php
 <?php
 
-use SiroDiaz\ManticoreMigration\Manticore\ManticoreConnection;
-use SiroDiaz\ManticoreMigration\MigrationDirector;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
-use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
+use Sharpen\Versionna\Manticore\ManticoreConnection;
+use Sharpen\Versionna\MigrationDirector;
+use Sharpen\Versionna\Storage\DatabaseConfiguration;
+use Sharpen\Versionna\Storage\DatabaseConnection;
+use Sharpen\Versionna\Storage\MigrationTable;
 
 $configuration = require 'config.php';
 
@@ -214,11 +214,11 @@ echo 'Applied all migrations';
 There are two available commands to rollback applied migrations using the Command Line Interface
 
 ```sh
-./vendor/bin/manticore-migration rollback -c config.php
+./vendor/bin/versionna rollback -c config.php
 ```
 
 ```sh
-./vendor/bin/manticore-migration migrate:down -c config.php
+./vendor/bin/versionna migrate:down -c config.php
 ```
 
 #### programmatically
@@ -226,11 +226,11 @@ There are two available commands to rollback applied migrations using the Comman
 ```php
 <?php
 
-use SiroDiaz\ManticoreMigration\Manticore\ManticoreConnection;
-use SiroDiaz\ManticoreMigration\MigrationDirector;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
-use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
+use Sharpen\Versionna\Manticore\ManticoreConnection;
+use Sharpen\Versionna\MigrationDirector;
+use Sharpen\Versionna\Storage\DatabaseConfiguration;
+use Sharpen\Versionna\Storage\DatabaseConnection;
+use Sharpen\Versionna\Storage\MigrationTable;
 
 $configuration = require 'config.php';
 
@@ -270,7 +270,7 @@ $director->undoMigrations($steps);
 For list pending migrations using the Command Line tool
 
 ```sh
-./vendor/bin/manticore-migration migration:list:pending -c config.php
+./vendor/bin/versionna migration:list:pending -c config.php
 ```
 #### programmatically
 
@@ -317,18 +317,18 @@ if ($migrations) {
 For list pending migrations using the Command Line tool
 
 ```sh
-./vendor/bin/manticore-migration migration:list:pending -c config.php
+./vendor/bin/versionna migration:list:pending -c config.php
 ```
 #### programmatically
 
 ```php
 <?php
 
-use SiroDiaz\ManticoreMigration\Manticore\ManticoreConnection;
-use SiroDiaz\ManticoreMigration\MigrationDirector;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
-use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
+use Sharpen\Versionna\Manticore\ManticoreConnection;
+use Sharpen\Versionna\MigrationDirector;
+use Sharpen\Versionna\Storage\DatabaseConfiguration;
+use Sharpen\Versionna\Storage\DatabaseConnection;
+use Sharpen\Versionna\Storage\MigrationTable;
 
 $dbConnection = new DatabaseConnection(
     DatabaseConfiguration::fromArray(

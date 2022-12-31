@@ -1,6 +1,6 @@
 <?php
 
-namespace SiroDiaz\ManticoreMigration\Tests;
+namespace Sharpen\Versionna\Tests;
 
 use PHPUnit\Framework\TestCase;
 

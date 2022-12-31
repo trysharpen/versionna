@@ -1,6 +1,6 @@
 <?php
 
-use SiroDiaz\ManticoreMigration\Migration;
+use Sharpen\Versionna\Migration;
 
 class CreateReviewsIndex extends Migration
 {

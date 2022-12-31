@@ -1,16 +1,16 @@
 {
-    "name": "sirodiaz/manticore-migration",
+    "name": "sharpen/versionna",
     "description": "Manticoresearch migration tool. Keep your index schemas up to date programmatically in your application",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "SiroDiaz\\ManticoreMigration\\": "src/ManticoreMigration/"
+            "Sharpen\\Versionna\\": "src/Versionna/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SiroDiaz\\ManticoreMigration\\Tests\\": "tests/"
+            "Sharpen\\Versionna\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -31,7 +31,7 @@
         "phpstan/phpstan": "^1.6",
         "phpunit/phpunit": "^9.0"
     },
-	"bin": ["bin/manticore-migrator"],
+	"bin": ["bin/versionna"],
     "config": {
         "sort-packages": true,
         "allow-plugins": {

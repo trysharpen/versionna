@@ -2,14 +2,14 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use SiroDiaz\ManticoreMigration\Indexer\ManticoreIndexer;
-use SiroDiaz\ManticoreMigration\Manticore\ManticoreConnection;
-use SiroDiaz\ManticoreMigration\ManticoreMigration;
-use SiroDiaz\ManticoreMigration\MigrationDirector;
-use SiroDiaz\ManticoreMigration\Runner\Loader;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConfiguration;
-use SiroDiaz\ManticoreMigration\Storage\DatabaseConnection;
-use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
+use Sharpen\Versionna\Indexer\ManticoreIndexer;
+use Sharpen\Versionna\Manticore\ManticoreConnection;
+use Sharpen\Versionna\Versionna;
+use Sharpen\Versionna\MigrationDirector;
+use Sharpen\Versionna\Runner\Loader;
+use Sharpen\Versionna\Storage\DatabaseConfiguration;
+use Sharpen\Versionna\Storage\DatabaseConnection;
+use Sharpen\Versionna\Storage\MigrationTable;
 
 //$configuration = require __DIR__ .'/config.php';
 //
@@ -35,7 +35,7 @@ use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
 //echo $migrationTable->exists() === true;
 
 
-//	class CreateProductsIndex extends ManticoreMigration {
+//	class CreateProductsIndex extends Versionna {
 //		public function up(ManticoreMigrationRunner $runner, ManticoreIndexer $indexer) {
 //			$runner->execute('CREATE TABLE products (title text indexed, description text stored, seller text, price float)');
 //
@@ -56,7 +56,7 @@ use SiroDiaz\ManticoreMigration\Storage\MigrationTable;
 if (!function_exists('testDbConnection')) {
 	function testDbConnection()
 	{
-		$configuration = require __DIR__ .'/config.php';
+		$configuration = require __DIR__ . '/config.php';
 
 		$dbConfiguration = DatabaseConfiguration::fromArray(
 			$configuration['connection']
@@ -68,16 +68,16 @@ if (!function_exists('testDbConnection')) {
 			exit(1);
 		}
 
-		echo 'Connection is OK'. PHP_EOL;
+		echo 'Connection is OK' . PHP_EOL;
 
 		$migrationTable = new MigrationTable($dbConn, $configuration['table_prefix'], $configuration['migration_table']);
 
 		if ($migrationTable->exists()) {
-			echo 'Migration table exists'. PHP_EOL;
+			echo 'Migration table exists' . PHP_EOL;
 		} else {
-			echo 'Migration table does not exist'. PHP_EOL;
+			echo 'Migration table does not exist' . PHP_EOL;
 			$migrationTable->create();
-			echo 'Migration table created'. PHP_EOL;
+			echo 'Migration table created' . PHP_EOL;
 		}
 	}
 }
@@ -85,7 +85,7 @@ if (!function_exists('testDbConnection')) {
 if (!function_exists('listMigrations')) {
 	function listMigrations()
 	{
-		$configuration = require __DIR__ .'/config.php';
+		$configuration = require __DIR__ . '/config.php';
 		var_dump($configuration);
 		$dbConfiguration = DatabaseConfiguration::fromArray(
 			$configuration['connections']['pgsql'],

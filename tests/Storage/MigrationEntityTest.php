@@ -1,10 +1,10 @@
 <?php
 
-namespace SiroDiaz\ManticoreMigration\Tests\Storage;
+namespace Sharpen\Versionna\Tests\Storage;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SiroDiaz\ManticoreMigration\Storage\MigrationEntity;
+use Sharpen\Versionna\Storage\MigrationEntity;
 
 class MigrationEntityTest extends TestCase
 {

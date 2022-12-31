@@ -1,10 +1,10 @@
 <?php
 
-namespace SiroDiaz\ManticoreMigration\Tests;
+namespace Sharpen\Versionna\Tests;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SiroDiaz\ManticoreMigration\MigrationCreator;
+use Sharpen\Versionna\MigrationCreator;
 
 class MigrationCreatorTest extends TestCase
 {

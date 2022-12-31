@@ -1,6 +1,6 @@
 <?php
 
-use SiroDiaz\ManticoreMigration\Migration;
+use Sharpen\Versionna\Migration;
 
 class CreateCategoriesIndex extends Migration
 {
