@@ -1,9 +1,8 @@
 # versionna
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sharpen/versionna.svg?style=flat-square)](https://packagist.org/packages/Sharpen/versionna)
-[![tests](https://github.com/Sharpen/versionna/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Sharpen/versionna/actions/workflows/tests.yml)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/Sharpen/versionna/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/Sharpen/versionna/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![PHPStan Code Styling](https://github.com/Sharpen/versionna/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/Sharpen/versionna/actions/workflows/phpstan.yml)
+[![tests](https://github.com/trysharpen/versionna/actions/workflows/tests.yml/badge.svg)](https://github.com/trysharpen/versionna/actions/workflows/tests.yml)
+[![phpstan](https://github.com/trysharpen/versionna/actions/workflows/phpstan.yml/badge.svg)](https://github.com/trysharpen/versionna/actions/workflows/phpstan.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/Sharpen/versionna.svg?style=flat-square)](https://packagist.org/packages/Sharpen/versionna)
 
 Manticoresearch migration tool. Keep updated your index schemas up to date using an executable CLI script or integrate it programmatically in your application code.
